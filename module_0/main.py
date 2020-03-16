@@ -1,37 +1,59 @@
-from random import randint
 import numpy as np
 
-def game_core_v1(number):
+def game_core_v3(number):
+    # Открываем функцию для нахождения числа
+
     count = 0
-    a = [x for x in range(1, 100)]
-
-    # искомое число
-    value = random.randint(1,100)
-
-
-    mid = len(a) // 2
+    # Устанавливаем счетчик на 0
+    number_list = [x for x in range(1, 100)]
+    # Генерируем массив
+    value = np.random.randint(1,100)
+    # Устанавливаю искомое рандомное число
+    mid = len(number_list) // 2
+    # Среднее значение
     low = 0
-    high = len(a) - 1
+    # Нижняя граница числел
+    high = len(number_list) - 1
+    # Верхняя граница чисел
 
-    while a[mid] != value and low <= high:
+    while number_list[mid] != value and low <= high:
+        # Устанавливаем условия для цикла
         count += 1
-        if value > a[mid]:
+        # Добавляем +1 к счетчику
+        if value > number_list[mid]:
+        # Если искомое число больше среднего значения, то...
             low = mid + 1
+            # Нижнюю границу смещаем на среднее значение
         else:
+        # В остальных случаях...
             high = mid - 1
+            # Смещаем верхнюю границу на среднее значение
         mid = (low + high) // 2
+        # После смешения границы находим новое среднее значение
 
-    return(count) # выход из цикла, если угадали       
-        
-def score_game(game_core_v1):
+    return(count)
+    # Выходим из цикла и возвращаем кол-во попыток
+
+def score_game(game_core_v3):
+# Открываем функцию для вычисления среднего кол-ва попыток по нахождению числа
+
     count_ls = []
-    np.random.seed(1)  # фиксируем RANDOM SEED, чтобы ваш эксперимент был воспроизводим!
+    # Открываем массив
+    np.random.seed(1)
+    # Фиксируем RANDOM SEED, чтобы поиск числа был воспроизводим
     random_array = np.random.randint(1, 101, size=(1000))
-    for number in random_array:
-        count_ls.append(game_core_v1(number))
-    score = int(np.mean(count_ls))
-    print(f"Ваш алгоритм угадывает число в среднем за {score} попыток")
-    return(score)
+    # Заносим рандомные числа от 1 до 100
 
-# запускаем
-score_game(game_core_v1)
+    for number in random_array:
+    # Заводим цикл для массива
+        count_ls.append(game_core_v3(number))
+        # Вносим в массив кол-во попыток по каждой функции для нахождения числа
+    score = int(np.mean(count_ls))
+    # Вычисляем средне арифметическое по массиву
+    print(f"Ваш алгоритм угадывает число в среднем за {score} попыток")
+    # Выводим среднее кол-во попыток по нахождению рандомного числа
+    return(score)
+    # Выходим из цикла и среднее значение по попыткам
+
+score_game(game_core_v3)
+# Запускаем цикл для функции
